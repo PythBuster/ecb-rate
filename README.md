@@ -108,11 +108,10 @@ Format:
 
     ecb_rate/
     ├─ cli.py
-    ├─ service.py
-    ├─ models.py
+    ├─ client.py
     ├─ custom_types.py
-    └─ api/
-       └─ json_api.py
+    ├─ models.py
+    ├─ service.py
 
 ---
 
