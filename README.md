@@ -49,12 +49,46 @@ Output:
 
 ## Supported currencies
 
-Currently:
+## Supported currencies
 
-- EUR (base)
-- TRY
+The CLI supports all currencies defined by the ECB reference exchange rate dataset (EXR).
 
-Extending support is straightforward via the `Currency` enum.
+Currently implemented currencies:
+
+- AUD – Australian dollar (Australia)
+- BRL – Brazilian real (Brazil)
+- CAD – Canadian dollar (Canada)
+- CHF – Swiss franc (Switzerland)
+- CNY – Chinese yuan (China)
+- CZK – Czech koruna (Czech Republic)
+- DKK – Danish krone (Denmark)
+- EUR – Euro (Eurozone)
+- GBP – Pound sterling (United Kingdom)
+- HKD – Hong Kong dollar (Hong Kong)
+- HUF – Hungarian forint (Hungary)
+- IDR – Indonesian rupiah (Indonesia)
+- ILS – Israeli shekel (Israel)
+- INR – Indian rupee (India)
+- ISK – Icelandic krona (Iceland)
+- JPY – Japanese yen (Japan)
+- KRW – South Korean won (South Korea)
+- MXN – Mexican peso (Mexico)
+- MYR – Malaysian ringgit (Malaysia)
+- NOK – Norwegian krone (Norway)
+- NZD – New Zealand dollar (New Zealand)
+- PHP – Philippine peso (Philippines)
+- PLN – Polish zloty (Poland)
+- RON – Romanian leu (Romania)
+- SEK – Swedish krona (Sweden)
+- SGD – Singapore dollar (Singapore)
+- THB – Thai baht (Thailand)
+- TRY – Turkish lira (Turkey)
+- USD – US dollar (United States)
+- ZAR – South African rand (South Africa)
+
+Source: https://data-api.ecb.europa.eu/service/data/EXR
+
+Currency support in this tool is defined via the `CurrencyType` enum.
 
 ---
 
