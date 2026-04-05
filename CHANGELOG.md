@@ -50,6 +50,13 @@ https://semver.org/spec/v2.0.0.html
 ### Removed
 
 ---
+## [0.2.0] - 2026-04-05
+
+### Added
+
+- Support for all ECB reference currencies
+- Extended `CurrencyType` StrEnum to include full ECB currency set
+
 
 ## [0.0.1] - 2026-04-05
 
