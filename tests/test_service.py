@@ -103,7 +103,6 @@ async def test_service_returns_identity_for_eur() -> None:
     assert client.calls == []  # pylint: disable=use-implicit-booleaness-not-comparison
 
 
-
 @pytest.mark.asyncio
 async def test_service_fetches_and_returns_try_rate() -> None:
     client = DummyClient(payload=make_valid_payload())
@@ -150,6 +149,7 @@ async def test_service_raises_when_no_points_found() -> None:
 
     with pytest.raises(EcbApiError, match="No ECB observations found"):
         await service.get_rates(query)
+
 
 def test_parser_skips_none_observation_payload() -> None:
     parser = EcbJsonParser()

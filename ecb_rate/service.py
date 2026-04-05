@@ -2,7 +2,6 @@
 Business logic for building EUR exchange rates from ECB JSON series.
 """
 
-
 from datetime import date
 from decimal import Decimal
 from typing import Any
