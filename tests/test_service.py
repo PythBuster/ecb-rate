@@ -144,3 +144,23 @@ async def test_service_propagates_parser_error() -> None:
 
     with pytest.raises(EcbApiError, match="bad payload"):
         await service.get_rate(query)
+
+
+def test_parser_raises_when_observation_value_is_none() -> None:
+    parser = EcbJsonParser()
+    payload = {
+        "dataSets": [
+            {
+                "series": {
+                    "0:0:0:0:0": {
+                        "observations": {
+                            "0": [None],
+                        }
+                    }
+                }
+            }
+        ]
+    }
+
+    with pytest.raises(EcbApiError, match=r"No exchange rate found\."):
+        parser.extract_ecb_rate(payload)

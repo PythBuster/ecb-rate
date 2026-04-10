@@ -26,6 +26,9 @@ class EcbJsonParser:
 
         try:
             result = list(payload["dataSets"][0]["series"].values())[0]["observations"]['0'][0]
+
+            if result is None:
+                raise EcbApiError("No exchange rate found.")
         except (KeyError, IndexError, TypeError) as exc:
             raise EcbApiError("Unexpected ECB JSON structure.") from exc
 
