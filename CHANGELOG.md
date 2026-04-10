@@ -7,6 +7,12 @@
 ### Removed
 
 ---
+## [0.4.1] - 2026-04-10
+
+### Changed
+
+- Fixed: handle missing ECB observation values (`None`) before `Decimal` conversion and raise a proper `EcbApiError` instead of `decimal.InvalidOperation`
+- Added: regression test for missing ECB observation values in parser handling
 
 
 ## [0.4.0] - 2026-04-10
