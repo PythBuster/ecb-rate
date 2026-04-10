@@ -1,6 +1,6 @@
 [project]
 name = "ecb-rate"
-version = "0.1.0"
+version = "0.3.0"
 description = "CLI for ECB JSON exchange rates"
 readme = "README.md"
 requires-python = ">=3.14"

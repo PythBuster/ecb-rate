@@ -1,15 +1,3 @@
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on Keep a Changelog:
-https://keepachangelog.com/en/1.1.0/
-
-This project adheres to Semantic Versioning:
-https://semver.org/spec/v2.0.0.html
-
----
-
 ## [Unreleased]
 
 ### Added
@@ -19,37 +7,14 @@ https://semver.org/spec/v2.0.0.html
 ### Removed
 
 ---
+## [0.3.0] - 2026-04-10
 
-## [0.0.1] - 2026-04-05
+## Changed
+- Refactored: all classes, fetch and paring logic
+- Refactored: tests
+- Performance improvements: reduce API traffic by limiting data response (params: detail=dataonly)
 
-### Added
 
-- Initial CLI implementation
-- Async ECB API client using aiohttp
-- Support for EUR → target currency conversion
-- Support for:
-  - current rate (default: today)
-  - historical date via --# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on Keep a Changelog:
-https://keepachangelog.com/en/1.1.0/
-
-This project adheres to Semantic Versioning:
-https://semver.org/spec/v2.0.0.html
-
----
-
-## [Unreleased]
-
-### Added
-
-### Changed
-
-### Removed
-
----
 ## [0.2.0] - 2026-04-05
 
 ### Added
@@ -58,7 +23,7 @@ https://semver.org/spec/v2.0.0.html
 - Extended `CurrencyType` StrEnum to include full ECB currency set
 
 
-## [0.0.1] - 2026-04-05
+## [0.1.0] - 2026-04-05
 
 ### Added
 
