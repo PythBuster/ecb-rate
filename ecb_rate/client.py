@@ -26,7 +26,7 @@ class ECBJsonClient:
     def __init__(self, timeout_seconds: int = 10) -> None:
         self._timeout = aiohttp.ClientTimeout(total=timeout_seconds)
 
-    async def fetch_series(
+    async def fetch(
         self,
         currency: CurrencyType,
         specific_date: date,
@@ -37,17 +37,20 @@ class ECBJsonClient:
         Uses:
             D.<CURRENCY>.EUR.SP00.A
             format=jsondata
+            startPeriod=<date>
             endPeriod=<date>
-            lastNObservations=1
+            details=dataonly
 
         This returns the latest available observation up to the given date.
         """
         series_key = f"D.{currency.code}.EUR.SP00.A"
 
+        iso_formatted_date = specific_date.isoformat()
         params = {
             "format": "jsondata",
-            "endPeriod": specific_date.isoformat(),
-            "lastNObservations": "1",
+            "startPeriod": iso_formatted_date,
+            "endPeriod": iso_formatted_date,
+            "details": "dataonly",
         }
 
         headers = {

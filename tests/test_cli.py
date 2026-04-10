@@ -7,7 +7,7 @@ import pytest
 import ecb_rate.cli as cli_module
 from ecb_rate.cli import CliApplication
 from ecb_rate.custom_types import CurrencyType
-from ecb_rate.models import CliInputError, QueryParams, RatePoint, SeriesResult
+from ecb_rate.models import CliInputError, QueryParams, RatePoint
 
 
 def test_build_query_defaults_to_today(monkeypatch) -> None:
@@ -96,10 +96,11 @@ def test_parse_args_with_all_options() -> None:
 
 
 def test_print_result_raw(capsys) -> None:
-    result = SeriesResult(
+    result = RatePoint(
         base_currency=CurrencyType.EUR,
         target_currency=CurrencyType.TRY,
-        points=[RatePoint(date=date(2025, 6, 6), rate=Decimal("43.1234"))],
+        date=date(2025, 6, 6),
+        rate=Decimal("43.1234"),
     )
 
     CliApplication._print_result(  # pylint: disable=protected-access
@@ -111,10 +112,11 @@ def test_print_result_raw(capsys) -> None:
 
 
 def test_print_result_pretty(capsys) -> None:
-    result = SeriesResult(
+    result = RatePoint(
         base_currency=CurrencyType.EUR,
         target_currency=CurrencyType.TRY,
-        points=[RatePoint(date=date(2025, 6, 6), rate=Decimal("43.1234"))],
+        date=date(2025, 6, 6),
+        rate=Decimal("43.1234"),
     )
 
     CliApplication._print_result(  # pylint: disable=protected-access
@@ -128,10 +130,11 @@ def test_print_result_pretty(capsys) -> None:
 
 
 def test_print_result_pretty_exact_output(capsys) -> None:
-    result = SeriesResult(
+    result = RatePoint(
         base_currency=CurrencyType.EUR,
         target_currency=CurrencyType.TRY,
-        points=[RatePoint(date=date(2025, 6, 6), rate=Decimal("43.1234"))],
+        date=date(2025, 6, 6),
+        rate=Decimal("43.1234"),
     )
 
     CliApplication._print_result(  # pylint: disable=protected-access
@@ -145,52 +148,13 @@ def test_print_result_pretty_exact_output(capsys) -> None:
         "\n"
         "2025-06-06: 1 EUR = 43.1234 TRY\n"
     )
-
-
-def test_print_result_pretty_multiple_points(capsys) -> None:
-    result = SeriesResult(
-        base_currency=CurrencyType.EUR,
-        target_currency=CurrencyType.TRY,
-        points=[
-            RatePoint(date=date(2025, 6, 5), rate=Decimal("43.0000")),
-            RatePoint(date=date(2025, 6, 6), rate=Decimal("43.1234")),
-        ],
-    )
-
-    CliApplication._print_result(  # pylint: disable=protected-access
-        result, pretty=True
-    )
-
-    captured = capsys.readouterr()
-    assert captured.out == (
-        "Base currency:   EUR\n"
-        "Target currency: TRY\n"
-        "\n"
-        "2025-06-05: 1 EUR = 43.0000 TRY\n"
-        "2025-06-06: 1 EUR = 43.1234 TRY\n"
-    )
-
-
-def test_print_result_no_data(capsys) -> None:
-    result = SeriesResult(
-        base_currency=CurrencyType.EUR,
-        target_currency=CurrencyType.TRY,
-        points=[],
-    )
-
-    CliApplication._print_result(  # pylint: disable=protected-access
-        result, pretty=False
-    )
-
-    captured = capsys.readouterr()
-    assert captured.out.strip() == "No data available."
-
 
 def test_run_success(monkeypatch, capsys) -> None:
-    result = SeriesResult(
+    result = RatePoint(
         base_currency=CurrencyType.EUR,
         target_currency=CurrencyType.TRY,
-        points=[RatePoint(date=date(2025, 6, 6), rate=Decimal("43.1234"))],
+        date=date(2025, 6, 6),
+        rate=Decimal("43.1234"),
     )
 
     app = CliApplication()
@@ -205,13 +169,13 @@ def test_run_success(monkeypatch, capsys) -> None:
         ),
     )
 
-    async def fake_get_rates(_):
+    async def fake_get_rate(_):
         return result
 
     monkeypatch.setattr(
         app._service,  # pylint: disable=protected-access
-        "get_rates",
-        fake_get_rates,
+        "get_rate",
+        fake_get_rate,
     )
 
     exit_code = app.run([])
@@ -222,10 +186,10 @@ def test_run_success(monkeypatch, capsys) -> None:
 
 
 def test_run_success_pretty(monkeypatch, capsys) -> None:
-    result = SeriesResult(
-        base_currency=CurrencyType.EUR,
+    result = RatePoint(
         target_currency=CurrencyType.TRY,
-        points=[RatePoint(date=date(2025, 6, 6), rate=Decimal("43.1234"))],
+        date=date(2025, 6, 6),
+        rate=Decimal("43.1234"),
     )
 
     app = CliApplication()
@@ -240,13 +204,13 @@ def test_run_success_pretty(monkeypatch, capsys) -> None:
         ),
     )
 
-    async def fake_get_rates(_):
+    async def fake_get_rate(_):
         return result
 
     monkeypatch.setattr(
         app._service,  # pylint: disable=protected-access
-        "get_rates",
-        fake_get_rates,
+        "get_rate",
+        fake_get_rate,
     )
 
     exit_code = app.run([])

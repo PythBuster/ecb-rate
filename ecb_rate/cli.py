@@ -17,7 +17,7 @@ from pydantic import ValidationError
 
 from ecb_rate.client import ECBJsonClient
 from ecb_rate.models import (CliInputError, EcbRateError, QueryParams,
-                             SeriesResult)
+                             RatePoint)
 from ecb_rate.service import EcbJsonParser, ExchangeRateService
 
 
@@ -38,7 +38,7 @@ class CliApplication:
         try:
             args = self._parse_args(argv)
             query = self._build_query(args)
-            result = asyncio.run(self._service.get_rates(query))
+            result = asyncio.run(self._service.get_rate(query))
             self._print_result(result, pretty=args.pretty)
             return 0
         except (CliInputError, EcbRateError) as exc:
@@ -91,24 +91,19 @@ class CliApplication:
             raise CliInputError(str(exc)) from exc
 
     @staticmethod
-    def _print_result(result: SeriesResult, pretty: bool = False) -> None:
-        if not result.points:
-            print("No data available.")
-            return
-
+    def _print_result(rate_point: RatePoint, pretty: bool = False) -> None:
         if not pretty:
-            print(result.points[-1].rate)
+            print(f"{rate_point.rate:.4f}")
             return
 
-        print(f"Base currency:   {result.base_currency.code}")
-        print(f"Target currency: {result.target_currency.code}")
+        print(f"Base currency:   {rate_point.base_currency.code}")
+        print(f"Target currency: {rate_point.target_currency.code}")
         print()
 
-        for point in result.points:
-            print(
-                f"{point.date.isoformat()}: "
-                f"1 {result.base_currency.code} = {point.rate} {result.target_currency.code}"
-            )
+        print(
+            f"{rate_point.date.isoformat()}: "
+            f"1 {rate_point.base_currency.code} = {rate_point.rate:.4f} {rate_point.target_currency.code}"
+        )
 
 
 def main() -> int:

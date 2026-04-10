@@ -5,7 +5,7 @@ Shared models and exceptions for ecb_rate.
 from datetime import date
 from decimal import Decimal
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, field_validator
 
 from ecb_rate.custom_types import CurrencyType
 
@@ -30,7 +30,7 @@ class QueryParams(BaseModel):
     """
 
     target_currency: CurrencyType
-    specific_date: date = Field(...)
+    specific_date: date
 
     @field_validator("target_currency", mode="before")
     @classmethod
@@ -51,15 +51,6 @@ class RatePoint(BaseModel):
 
     date: date
     rate: Decimal
-
-
-class SeriesResult(BaseModel):
-    """
-    Final conversion result.
-
-    Base currency is always EUR.
-    """
-
-    base_currency: CurrencyType
     target_currency: CurrencyType
-    points: list[RatePoint]
+    base_currency: CurrencyType = CurrencyType.EUR
+
