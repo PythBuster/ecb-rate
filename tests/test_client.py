@@ -1,7 +1,7 @@
+import asyncio
 from datetime import date
 from types import SimpleNamespace
 from typing import Any
-import asyncio
 
 import aiohttp
 import pytest
@@ -62,7 +62,9 @@ class FakeSession:
             raise self._get_exc
 
         if self._response is None:  # pragma: no cover
-            raise AssertionError("FakeSession.get() called without configured response.")
+            raise AssertionError(
+                "FakeSession.get() called without configured response."
+            )
 
         return self._response
 

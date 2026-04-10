@@ -53,4 +53,3 @@ class RatePoint(BaseModel):
     rate: Decimal
     target_currency: CurrencyType
     base_currency: CurrencyType = CurrencyType.EUR
-

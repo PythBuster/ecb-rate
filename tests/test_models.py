@@ -22,7 +22,7 @@ def test_query_params_casts_supported_currency_strings(
     currency_input: str,
 ) -> None:
     query = QueryParams(
-        target_currency=currency_input, # type: ignore[arg-type]
+        target_currency=currency_input,  # type: ignore[arg-type]
         specific_date=date(2025, 6, 6),
     )
 
@@ -50,7 +50,7 @@ def test_rate_point_accepts_decimal_rate() -> None:
 def test_rate_point_casts_string_rate_to_decimal() -> None:
     point = RatePoint(
         date=date(2025, 6, 6),
-        rate="43.1234", # type: ignore[arg-type]
+        rate="43.1234",  # type: ignore[arg-type]
         target_currency=CurrencyType.TRY,
     )
 

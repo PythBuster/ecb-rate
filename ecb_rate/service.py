@@ -25,7 +25,9 @@ class EcbJsonParser:
         """
 
         try:
-            result = list(payload["dataSets"][0]["series"].values())[0]["observations"]['0'][0]
+            result = list(payload["dataSets"][0]["series"].values())[0]["observations"][
+                "0"
+            ][0]
 
             if result is None:
                 raise EcbApiError("No exchange rate found.")
@@ -72,7 +74,6 @@ class ExchangeRateService:
             date=query.specific_date,
             rate=rate,
         )
-
 
     async def _fetch_eur_to_currency(
         self,

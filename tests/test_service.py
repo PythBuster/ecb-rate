@@ -1,6 +1,6 @@
+import json
 from datetime import date
 from decimal import Decimal
-import json
 from pathlib import Path
 from typing import Any
 
@@ -21,7 +21,9 @@ class DummyClient:
         self.payload = payload or {}
         self.calls: list[tuple[CurrencyType, date]] = []
 
-    async def fetch(self, currency: CurrencyType, specific_date: date) -> dict[str, Any]:
+    async def fetch(
+        self, currency: CurrencyType, specific_date: date
+    ) -> dict[str, Any]:
         self.calls.append((currency, specific_date))
         return self.payload
 
@@ -112,7 +114,9 @@ async def test_service_fetches_and_parses_non_eur_currency() -> None:
 @pytest.mark.asyncio
 async def test_service_propagates_client_error() -> None:
     class FailingClient:
-        async def fetch(self, currency: CurrencyType, specific_date: date) -> dict[str, Any]:
+        async def fetch(
+            self, currency: CurrencyType, specific_date: date
+        ) -> dict[str, Any]:
             raise EcbApiError("network down")
 
     parser = DummyParser()

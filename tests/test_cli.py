@@ -16,7 +16,12 @@ from ecb_rate.models import CliInputError, EcbApiError, QueryParams, RatePoint
         (["TRY"], "TRY", None, False),
         (["TRY", "--specificDate", "2025-06-06"], "TRY", "2025-06-06", False),
         (["TRY", "--pretty"], "TRY", None, True),
-        (["TRY", "--specificDate", "2025-06-06", "--pretty"], "TRY", "2025-06-06", True),
+        (
+            ["TRY", "--specificDate", "2025-06-06", "--pretty"],
+            "TRY",
+            "2025-06-06",
+            True,
+        ),
     ],
 )
 def test_parse_args(
@@ -34,7 +39,9 @@ def test_parse_args(
 
 
 @pytest.mark.parametrize("argv", [[], ["--pretty"]])
-def test_parse_args_raises_system_exit_on_missing_required_currency(argv: list[str]) -> None:
+def test_parse_args_raises_system_exit_on_missing_required_currency(
+    argv: list[str],
+) -> None:
     with pytest.raises(SystemExit):
         CliApplication._parse_args(argv)  # pylint: disable=protected-access
 
@@ -125,7 +132,9 @@ def test_print_result(
         rate=Decimal("43.1234"),
     )
 
-    CliApplication._print_result(result, pretty=pretty)  # pylint: disable=protected-access
+    CliApplication._print_result(  # pylint: disable=protected-access
+        rate_point=result, pretty=pretty
+    )
 
     captured = capsys.readouterr()
     assert captured.out == expected_output
@@ -169,7 +178,9 @@ def test_run_success(
         return result
 
     monkeypatch.setattr(app, "_print_result", wrapped_print_result)
-    monkeypatch.setattr(app._service, "get_rate", fake_get_rate)  # pylint: disable=protected-access
+    monkeypatch.setattr(
+        app._service, "get_rate", fake_get_rate  # pylint: disable=protected-access
+    )
 
     exit_code = app.run([])
 
@@ -213,15 +224,21 @@ def test_run_returns_error_code_for_known_errors(
     )
 
     if patch_target == "build_query":
+
         def raise_build_query_error(_args):
             raise exc
 
         monkeypatch.setattr(app, "_build_query", raise_build_query_error)
     else:
+
         async def raise_service_error(_query):
             raise exc
 
-        monkeypatch.setattr(app._service, "get_rate", raise_service_error)  # pylint: disable=protected-access
+        monkeypatch.setattr(
+            app._service,  # pylint: disable=protected-access
+            "get_rate",
+            raise_service_error,
+        )
 
     exit_code = app.run([])
 
@@ -234,7 +251,7 @@ def test_run_returns_error_code_for_known_errors(
 def test_main_delegates_to_application(monkeypatch: pytest.MonkeyPatch) -> None:
     called: dict[str, object] = {}
 
-    def fake_run(self, argv=None):
+    def fake_run(_, argv=None):
         called["called"] = True
         called["argv"] = argv
         return 7

@@ -16,8 +16,7 @@ from datetime import date
 from pydantic import ValidationError
 
 from ecb_rate.client import ECBJsonClient
-from ecb_rate.models import (CliInputError, EcbRateError, QueryParams,
-                             RatePoint)
+from ecb_rate.models import CliInputError, EcbRateError, QueryParams, RatePoint
 from ecb_rate.service import EcbJsonParser, ExchangeRateService
 
 
