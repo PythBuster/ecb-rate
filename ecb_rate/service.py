@@ -29,7 +29,7 @@ class EcbJsonParser:
         except (KeyError, IndexError, TypeError) as exc:
             raise EcbApiError("Unexpected ECB JSON structure.") from exc
 
-        return Decimal(result)
+        return Decimal(str(result))
 
 
 class ExchangeRateService:
