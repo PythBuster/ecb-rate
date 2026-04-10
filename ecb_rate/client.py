@@ -37,7 +37,7 @@ class ECBJsonClient:
         Uses:
             D.<CURRENCY>.EUR.SP00.A
             format=jsondata
-            startPeriod=<date>
+            lastNObservations=1
             endPeriod=<date>
             details=dataonly
 
