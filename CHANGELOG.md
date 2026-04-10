@@ -7,6 +7,18 @@
 ### Removed
 
 ---
+
+
+## [0.4.0] - 2026-04-10
+
+### Changed
+
+- Refactored: improved and extended unit test coverage across client, CLI, service, models, and custom types
+- Refactored: added dedicated client tests again via `test_client.py`
+- Refactored: consolidated and simplified multiple tests using parametrization where appropriate
+- Refactored: improved service and parser test coverage for invalid payload structures and error propagation
+- Fixed: use string-based `Decimal` conversion in ECB rate parsing to avoid float precision artifacts
+
 ## [0.3.1] - 2026-04-10
 ### Changed
 - Fixed: removed startPeriod param and uss lastNObservations=1 instead to get the last valid ecb rate for a specific date
