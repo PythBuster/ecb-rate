@@ -7,6 +7,10 @@
 ### Removed
 
 ---
+## [0.3.1] - 2026-04-10
+### Changed
+- Fixed: removed startPeriod param and uss lastNObservations=1 instead to get the last valid ecb rate for a specific date
+
 ## [0.3.0] - 2026-04-10
 
 ## Changed

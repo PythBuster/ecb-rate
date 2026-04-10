@@ -48,7 +48,7 @@ class ECBJsonClient:
         iso_formatted_date = specific_date.isoformat()
         params = {
             "format": "jsondata",
-            "startPeriod": iso_formatted_date,
+            "lastNObservations": 1,
             "endPeriod": iso_formatted_date,
             "details": "dataonly",
         }
@@ -75,6 +75,7 @@ class ECBJsonClient:
 
                     try:
                         data = await response.json()
+
                     except aiohttp.ContentTypeError as exc:
                         text = await response.text()
                         raise EcbApiError(
