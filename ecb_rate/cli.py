@@ -4,7 +4,7 @@ CLI entry point for ecb_rate.
 Examples:
     ecb_rate TRY
     ecb_rate try
-    ecb_rate TRY --specificDate 2025-06-06
+    ecb_rate TRY --specific-date 2025-06-06
     ecb_rate TRY --pretty
 """
 
@@ -18,6 +18,7 @@ from pydantic import ValidationError
 from ecb_rate.client import ECBJsonClient
 from ecb_rate.models import CliInputError, EcbRateError, QueryParams, RatePoint
 from ecb_rate.service import EcbJsonParser, ExchangeRateService
+from ecb_rate.utils import load_pyproject
 
 
 class CliApplication:
@@ -46,17 +47,31 @@ class CliApplication:
 
     @staticmethod
     def _parse_args(argv: list[str] | None) -> argparse.Namespace:
+        pyproject = load_pyproject()
+
+        project = pyproject["project"]
+        project_name = project["name"].replace("-", "_")
+        project_version = project["version"]
+        project_description = project["description"]
+
         parser = argparse.ArgumentParser(
-            prog="ecb_rate",
-            description="Get ECB JSON EUR exchange rates for a target currency.",
+            prog=project_name,
+            description=project_description,
         )
 
         parser.add_argument(
-            "target_currency",
-            help="Target currency code, e.g. try or TRY",
+            "--version",
+            action="version",
+            version=f"%(prog)s {project_version}",
+            help="Show the installed CLI version and exit.",
         )
         parser.add_argument(
-            "--specificDate",
+            "target_currency",
+            nargs="?",
+            help="Target currency code, for example TRY or USD.",
+        )
+        parser.add_argument(
+            "--specific-date",
             dest="specific_date",
             default=None,
             help="Specific date in YYYY-MM-DD format. Defaults to today.",
@@ -64,10 +79,15 @@ class CliApplication:
         parser.add_argument(
             "--pretty",
             action="store_true",
-            help="Pretty print output with metadata.",
+            help="Print formatted output with base currency, target currency, and rate date.",
         )
 
-        return parser.parse_args(argv)
+        args = parser.parse_args(argv)
+
+        if args.target_currency is None:
+            parser.error("the following arguments are required: target_currency")
+
+        return args
 
     @staticmethod
     def _build_query(args: argparse.Namespace) -> QueryParams:
@@ -78,7 +98,7 @@ class CliApplication:
                 specific_date = date.fromisoformat(args.specific_date)
             except ValueError as exc:
                 raise CliInputError(
-                    f"Invalid --specificDate: {args.specific_date}. Expected YYYY-MM-DD."
+                    f"Invalid --specific-date: {args.specific_date}. Expected YYYY-MM-DD."
                 ) from exc
 
         try:

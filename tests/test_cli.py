@@ -14,10 +14,10 @@ from ecb_rate.models import CliInputError, EcbApiError, QueryParams, RatePoint
     ("argv", "expected_currency", "expected_date", "expected_pretty"),
     [
         (["TRY"], "TRY", None, False),
-        (["TRY", "--specificDate", "2025-06-06"], "TRY", "2025-06-06", False),
+        (["TRY", "--specific-date", "2025-06-06"], "TRY", "2025-06-06", False),
         (["TRY", "--pretty"], "TRY", None, True),
         (
-            ["TRY", "--specificDate", "2025-06-06", "--pretty"],
+            ["TRY", "--specific-date", "2025-06-06", "--pretty"],
             "TRY",
             "2025-06-06",
             True,
@@ -88,7 +88,7 @@ def test_build_query_parses_specific_date() -> None:
 @pytest.mark.parametrize(
     ("target_currency", "specific_date", "match"),
     [
-        ("TRY", "06-06-2025", "Invalid --specificDate"),
+        ("TRY", "06-06-2025", "Invalid --specific-date"),
         ("NOPE", "2025-06-06", "Input should be"),
     ],
 )
