@@ -7,6 +7,22 @@
 ### Removed
 
 ---
+## [0.5.2] - 2026-04-12
+
+### Changed
+- Replaced runtime loading from `pyproject.toml` with installed package metadata
+
+### Removed
+- Removed `utils.py` and the `load_pyproject()` helper
+
+
+## [0.5.1] - 2026-04-12
+
+### Added
+- Added `LICENSE` and `MANIFEST.in` to improve PyPI packaging
+
+### Changed
+- Updated `pyproject.toml` metadata for PyPI publishing
 
 ## [0.5.0] - 2026-04-12
 

@@ -1,13 +1,43 @@
+[build-system]
+requires = ["setuptools>=80", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "ecb-rate"
-version = "0.5.0"
+version = "0.5.2"
 description = "CLI for ECB JSON exchange rates."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.15"
+authors = [
+    { name = "PythBuster" }
+]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["ecb", "exchange-rates", "currency", "cli", "forex"]
 dependencies = [
     "aiohttp>=3.13.5",
     "pydantic>=2.12.5",
 ]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/PythBuster/ecb-rate"
+Repository = "https://github.com/PythBuster/ecb-rate"
+Issues = "https://github.com/PythBuster/ecb-rate/issues"
 
 [project.scripts]
 ecb_rate = "ecb_rate.cli:main"
@@ -15,21 +45,5 @@ ecb_rate = "ecb_rate.cli:main"
 [tool.uv]
 package = true
 
-[build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.build_meta"
-
-[dependency-groups]
-dev = [
-    "black>=26.3.1",
-    "flake8-pyproject>=1.2.4",
-    "isort>=8.0.1",
-    "pylint>=4.0.5",
-    "pytest>=8.3.0",
-    "pytest-asyncio>=0.24.0",
-    "pytest-cov>=7.1.0",
-]
-
-[tool.pytest.ini_options]
-asyncio_mode = "auto"
-testpaths = ["tests"]
+[tool.setuptools]
+include-package-data = true
