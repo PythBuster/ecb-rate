@@ -1,9 +1,9 @@
 [project]
 name = "ecb-rate"
-version = "0.4.1"
-description = "CLI for ECB JSON exchange rates"
+version = "0.5.0"
+description = "CLI for ECB JSON exchange rates."
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11"
 dependencies = [
     "aiohttp>=3.13.5",
     "pydantic>=2.12.5",

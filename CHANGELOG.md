@@ -7,13 +7,34 @@
 ### Removed
 
 ---
+
+## [0.5.0] - 2026-04-12
+
+### Added
+
+- Added `--version` CLI flag to print the installed application version and exit
+- Added `utils.py` with `load_pyproject()` helper for reading project metadata from `pyproject.toml`
+- Added unit tests for `utils.py`
+- Added README note that ECB euro foreign exchange reference rates are published for information purposes only and should not be used for transaction purposes
+
+### Changed
+
+- Changed CLI option `--specificDate` to `--specific-date` to follow common CLI naming conventions
+- Changed CLI argument parser to load project metadata such as version and description from `pyproject.toml`
+- Improved CLI help texts for all command-line arguments
+- Updated CLI tests to use `--specific-date`
+- Updated README usage examples to include `--version` and the revised date option naming
+
+### Removed
+
+- Removed legacy camelCase CLI option style for the specific date flag (`--specificDate`)
+
 ## [0.4.1] - 2026-04-10
 
 ### Changed
 
 - Fixed: handle missing ECB observation values (`None`) before `Decimal` conversion and raise a proper `EcbApiError` instead of `decimal.InvalidOperation`
 - Added: regression test for missing ECB observation values in parser handling
-
 
 ## [0.4.0] - 2026-04-10
 
