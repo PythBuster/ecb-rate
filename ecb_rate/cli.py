@@ -14,11 +14,11 @@ import sys
 from datetime import date
 
 from pydantic import ValidationError
+from importlib.metadata import metadata
 
 from ecb_rate.client import ECBJsonClient
 from ecb_rate.models import CliInputError, EcbRateError, QueryParams, RatePoint
 from ecb_rate.service import EcbJsonParser, ExchangeRateService
-from ecb_rate.utils import load_pyproject
 
 
 class CliApplication:
@@ -47,12 +47,11 @@ class CliApplication:
 
     @staticmethod
     def _parse_args(argv: list[str] | None) -> argparse.Namespace:
-        pyproject = load_pyproject()
+        package_metadata = metadata("ecb-rate")
 
-        project = pyproject["project"]
-        project_name = project["name"].replace("-", "_")
-        project_version = project["version"]
-        project_description = project["description"]
+        project_name = package_metadata["Name"].replace("-", "_")
+        project_version = package_metadata["Version"]
+        project_description = package_metadata["Summary"]
 
         parser = argparse.ArgumentParser(
             prog=project_name,
