@@ -2,6 +2,12 @@
 
 Simple CLI tool to fetch EUR-based exchange rates from the European Central Bank (ECB) API.
 
+Note: ECB euro foreign exchange reference rates are published for information purposes only.
+Using these rates for transaction purposes is strongly discouraged by the ECB.
+
+Official ECB reference:
+https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
+
 ---
 
 ## Installation
@@ -30,7 +36,7 @@ Output:
 
 ### With specific date
 
-    ecb_rate TRY --specificDate 2025-06-06
+    ecb_rate TRY --specific-date 2025-06-06
 
 ---
 
@@ -47,7 +53,17 @@ Output:
 
 ---
 
-## Supported currencies
+### Version
+
+    ecb_rate --version
+
+Output:
+
+    ecb_rate 0.4.1
+
+Use this option to print the installed CLI version and exit immediately.
+
+---
 
 ## Supported currencies
 
@@ -86,7 +102,8 @@ Currently implemented currencies:
 - USD – US dollar (United States)
 - ZAR – South African rand (South Africa)
 
-Source: https://data-api.ecb.europa.eu/service/data/EXR
+Source:
+https://data-api.ecb.europa.eu/service/data/EXR
 
 Currency support in this tool is defined via the `CurrencyType` enum.
 
@@ -102,6 +119,8 @@ Format:
 
 - jsondata (SDMX JSON)
 
+Reference rates are intended for informational use and should not be treated as executable market prices.
+
 ---
 
 ## Project structure
@@ -112,6 +131,7 @@ Format:
     ├─ custom_types.py
     ├─ models.py
     ├─ service.py
+    └─ utils.py
 
 ---
 
