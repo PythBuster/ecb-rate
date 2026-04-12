@@ -15,7 +15,7 @@ def test_load_pyproject_returns_parsed_toml(
 
     pyproject_path = project_root / "pyproject.toml"
     pyproject_path.write_text(
-        '[project]\n'
+        "[project]\n"
         'name = "ecb-rate"\n'
         'version = "0.4.1"\n'
         'description = "CLI for ECB JSON exchange rates"\n',
